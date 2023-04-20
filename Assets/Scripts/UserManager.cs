@@ -1,116 +1,94 @@
-﻿using DevionGames.LoginSystem.Configuration;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
 
-namespace DevionGames.LoginSystem
+public class UserManager : MonoBehaviour
 {
-    public class UserManager : MonoBehaviour
+    [SerializeField] GameObject signUpTab, loginTab, startPanel, HUD;
+
+    public Text username, userEmail, userPassword, userEmailLogin, userPasswordLogin, errorSignUp, errorLogin;
+    string encryptedPassword;
+    protected GameObject loadingIndicator;
+
+    public void SwitchToSignUpTab()
     {
-		
-	   public static Text dialogText;
-		private void Awake()
-		{
-			
-		
-		}
+		Debug.Log("Switching to sign up tab");
+        signUpTab.SetActive(true);
+        loginTab.SetActive(false);
 
-        private void Start()
+    }
+
+    public void SwitchToLoginTab()
+    {
+			Debug.Log("Switching to login tab");
+        loginTab.SetActive(true);
+        signUpTab.SetActive(false);
+        errorLogin.text = "";
+        errorSignUp.text = "";
+
+    }
+
+    string Encrypt(string pass)
+    {
+        System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
+        byte[] bs = System.Text.Encoding.UTF8.GetBytes(pass);
+        System.Text.StringBuilder s = new System.Text.StringBuilder();
+        foreach (byte b in bs)
         {
-			//TODO pass the login if logged in
-			
-			
+            s.Append(b.ToString("x2").ToLower());
+        }
+        return s.ToString();
+    }
 
-		}
-
-	
-public  void CreateAccount(string username, string password, string email)
-{
-    var request = new RegisterPlayFabUserRequest { Username = username, Password = password, Email = email };
-    PlayFabClientAPI.RegisterPlayFabUser(request, OnCreateAccountSuccess, OnCreateAccountFailure);
-}
-
-private  void OnCreateAccountSuccess(RegisterPlayFabUserResult result)
-{
-
-        Debug.Log("[CreateAccount] Account creation was successful!");
-		dialogText.text = "Account creation was successful!";
-
-    EventHandler.Execute("OnAccountCreated");
-}
-
-private  void OnCreateAccountFailure(PlayFabError error)
-{
-  
-        Debug.Log("[CreateAccount] Failed to create account. Error: " + error.ErrorMessage);
-		dialogText.text = "Failed to create account.";
-
-    EventHandler.Execute("OnFailedToCreateAccount");
-}
+    public void signUp()
+    {
+        var registerRequest = new RegisterPlayFabUserRequest();
+        registerRequest.Email = userEmail.text; registerRequest.Password = Encrypt(userPassword.text); registerRequest.Username = username.text;
+        PlayFabClientAPI.RegisterPlayFabUser(registerRequest, RegisterSuccess, RegisterError);
+    }
 
 
-public  static void LoginAccount(string username, string password)
-{
-    LoginAccountInternal(username, password);
-}
+    public void RegisterSuccess(RegisterPlayFabUserResult result)
+    {
+		Debug.Log("Register success");
+        errorLogin.text = "";
+        errorSignUp.text = "";
+        StartGame();
+    }
+    public void LoginSuccess(LoginResult result)
+    {
+			Debug.Log("Login success");
+        errorLogin.text = "";
+        errorSignUp.text = "";
+        StartGame();
+    }
 
-private  static void LoginAccountInternal(string username, string password)
-{
-
-
-    Debug.Log("[LoginAccount] Trying to login using username: " + username + " and password: " + password + "!");
-
-    var request = new LoginWithPlayFabRequest { Username = username, Password = password };
-    PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
-}
-
-private static void OnLoginSuccess(LoginResult result)
-{
-
-        Debug.Log("[LoginAccount] Login was successful!");
-		//TODO Open Menu
-
-    EventHandler.Execute("OnLogin");
-}
-
-private static void OnLoginFailure(PlayFabError error)
-{
-
-        Debug.Log("[LoginAccount] Failed to login. Error: " + error.ErrorMessage);
-		
-		dialogText.text = "Failed to login.";
-	
-
-    EventHandler.Execute("OnFailedToLogin");
-}
+    public void RegisterError(PlayFabError error)
+    {
+		Debug.Log(error.GenerateErrorReport());
+        errorSignUp.text = error.GenerateErrorReport();
+    }
 
 
+    public void Login()
+    {
+        var request = new LoginWithEmailAddressRequest();
+        request.Email = userEmailLogin.text;
+        request.Password = Encrypt(userPasswordLogin.text);
+        PlayFabClientAPI.LoginWithEmailAddress(request, LoginSuccess, LoginError);
+    }
+    public void LoginError(PlayFabError error)
+    {
+		Debug.Log(error.GenerateErrorReport());
+        errorLogin.text = error.GenerateErrorReport();
+    }
 
-		/// <summary>
-		/// Validates the email.
-		/// </summary>
-		/// <returns><c>true</c>, if email was validated, <c>false</c> otherwise.</returns>
-		/// <param name="email">Email.</param>
-		public  bool ValidateEmail(string email)
-		{
-			System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-			System.Text.RegularExpressions.Match match = regex.Match(email);
-			if (match.Success)
-			{
-			
-					Debug.Log("Email validation was successfull for email: " + email + "!");
-			}
-			else
-			{
-				
-					Debug.Log("Email validation failed for email: " + email + "!");
-			}
-
-			return match.Success;
-		}
-	}
+    void StartGame()
+    {
+        Debug.Log("Redirect to menu");
+    }
 }
