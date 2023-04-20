@@ -11,10 +11,7 @@ namespace DevionGames.LoginSystem
     {
         public static void Show(this NotificationOptions options, UnityAction<int> result, params string[] buttons)
         {
-            if (LoginManager.UI.dialogBox != null)
-            {
-                LoginManager.UI.dialogBox.Show(options, result,buttons);
-            }
+           
         }
     }
 }

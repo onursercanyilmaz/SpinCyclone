@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: LoginConfigurations
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -8794333826752133761}
+  - {fileID: 0}
   - {fileID: -6335041345592972870}
   - {fileID: 3242650895108413574}
   - {fileID: -4750212059465769874}

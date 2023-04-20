@@ -65,7 +65,7 @@ namespace DevionGames.LoginSystem
         }
 
         public void LoginUsingFields() {
-            LoginManager.LoginAccount(username.text, password.text);
+            UserManager.LoginAccount(username.text, password.text);
             loginButton.interactable = false;
             if (loadingIndicator != null) {
                 loadingIndicator.SetActive(true);
@@ -73,28 +73,14 @@ namespace DevionGames.LoginSystem
         }
 
         private void OnLogin() {
-            if (rememberMe != null && rememberMe.isOn)
-            {
-                PlayerPrefs.SetString("username", username.text);
-                PlayerPrefs.SetString("password", password.text);
-            }
-            else
-            {
-                PlayerPrefs.DeleteKey("username");
-                PlayerPrefs.DeleteKey("password");
-            }
-            Execute("OnLogin",new CallbackEventData());
-            if (LoginManager.DefaultSettings.loadSceneOnLogin)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(LoginManager.DefaultSettings.sceneToLoad);
-            }
+     
         }
 
         private void OnFailedToLogin() {
             Execute("OnFailedToLogin", new CallbackEventData());
             username.text = "";
             password.text = "";
-            LoginManager.Notifications.loginFailed.Show( delegate (int result) { Show(); }, "OK");
+           
             loginButton.interactable = true;
             if (loadingIndicator != null)
             {

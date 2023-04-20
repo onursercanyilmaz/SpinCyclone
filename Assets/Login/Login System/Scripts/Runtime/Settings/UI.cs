@@ -59,21 +59,7 @@ namespace DevionGames.LoginSystem.Configuration
             }
         }
 
-        private RecoverPasswordWindow m_RecoverPasswordWindow;
-        public RecoverPasswordWindow recoverPasswordWindow
-        {
-            get
-            {
-                if (this.m_RecoverPasswordWindow == null)
-                {
-                    this.m_RecoverPasswordWindow = WidgetUtility.Find<RecoverPasswordWindow>(this.recoverPasswordWindowName);
-                }
-                Assert.IsNotNull(this.m_RecoverPasswordWindow, "Recover Password Window with name " + this.recoverPasswordWindowName + " is not present in scene.");
-                return this.m_RecoverPasswordWindow;
-            }
-        }
-
-        private DialogBox m_DialogBox;
+            private DialogBox m_DialogBox;
         public DialogBox dialogBox
         {
             get

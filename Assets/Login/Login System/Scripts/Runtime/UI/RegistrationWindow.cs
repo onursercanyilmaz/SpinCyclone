@@ -78,7 +78,7 @@ namespace DevionGames.LoginSystem
                 string.IsNullOrEmpty(confirmPassword.text) ||
                 string.IsNullOrEmpty(email.text))
             {
-                LoginManager.Notifications.emptyField.Show(delegate (int result) { Show(); }, "OK");
+                
                 Close();
                 return;
             }
@@ -87,7 +87,7 @@ namespace DevionGames.LoginSystem
             {
                 password.text = "";
                 confirmPassword.text = "";
-                LoginManager.Notifications.passwordMatch.Show( delegate (int result) { Show(); }, "OK");
+                
                 Close();
                 return;
             }
@@ -95,14 +95,14 @@ namespace DevionGames.LoginSystem
             if (!LoginManager.ValidateEmail(email.text))
             {
                 email.text = "";
-                LoginManager.Notifications.invalidEmail.Show( delegate (int result) { Show(); }, "OK");
+               
                 Close();
                 return;
             }
 
             if (!termsOfUse.isOn)
             {
-                LoginManager.Notifications.termsOfUse.Show( delegate (int result) { Show(); }, "OK");
+              
                 Close();
                 return;
             }
@@ -117,7 +117,7 @@ namespace DevionGames.LoginSystem
 
         private void OnAccountCreated() {
             Execute("OnAccountCreated", new CallbackEventData());
-            LoginManager.Notifications.accountCreated.Show( delegate (int result) { LoginManager.UI.loginWindow.Show(); }, "OK");
+           
             registerButton.interactable = true;
             if (loadingIndicator != null)
             {
@@ -129,7 +129,7 @@ namespace DevionGames.LoginSystem
         private void OnFailedToCreateAccount() {
             Execute("OnFailedToCreateAccount", new CallbackEventData());
             username.text = "";
-            LoginManager.Notifications.userExists.Show( delegate (int result) { Show(); }, "OK");
+          
             registerButton.interactable = true;
             if (loadingIndicator != null)
             {
