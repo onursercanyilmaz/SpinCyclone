@@ -115,6 +115,12 @@
 -define:TIMELINE_FRAMEACCURATE
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/Microsoft.Identity.Client.dll"
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/Microsoft.IdentityModel.Clients.ActiveDirectory.dll"
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/Microsoft.IdentityModel.JsonWebTokens.dll"
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/Microsoft.IdentityModel.Logging.dll"
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/Microsoft.IdentityModel.Tokens.dll"
+-r:"Assets/PlayFabEditorExtensions/Editor/Resources/System.IdentityModel.Tokens.Jwt.dll"
 -r:"E:/unity/editor/2021.3.22f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"E:/unity/editor/2021.3.22f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"E:/unity/editor/2021.3.22f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
