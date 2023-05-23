@@ -1039,7 +1039,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3206922714013680113, guid: ed0cd302351f8ee47966c02dafba0634, type: 3}
   m_PrefabInstance: {fileID: 237725578}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &237725584
+--- !u!114 &237725589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1053,6 +1053,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  defenseDamageReduction: 5
+  spinDuration: 2
+  spinForce: 100
 --- !u!1 &285427355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2357,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  defenseDamageReduction: 5
+  spinDuration: 2
+  spinForce: 100
 --- !u!54 &462841832
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2463,7 +2473,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3206922714013680118, guid: ed0cd302351f8ee47966c02dafba0634, type: 3}
   m_PrefabInstance: {fileID: 496184914}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &496184923
+--- !u!114 &496184929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2477,20 +2487,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
---- !u!114 &496184924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496184916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c89264dc9bafd854099c261e2f145cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  spinForce: 100
 --- !u!1 &499020010
 GameObject:
   m_ObjectHideFlags: 0
@@ -3607,6 +3606,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 200
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  spinForce: 100
 --- !u!4 &912761871
 Transform:
   m_ObjectHideFlags: 0
@@ -4637,7 +4639,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4600439332741316467, guid: 6014e57c57e318747842c2f66879cc90, type: 3}
   m_PrefabInstance: {fileID: 1312369497}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1312369503
+--- !u!114 &1312369508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4651,6 +4653,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  spinForce: 100
 --- !u!1 &1315518798
 GameObject:
   m_ObjectHideFlags: 0
@@ -5027,7 +5032,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 626136179805307055, guid: 312a507365b82f0448685f6578b05d84, type: 3}
   m_PrefabInstance: {fileID: 461046307}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1492597776
+--- !u!114 &1492597781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5041,6 +5046,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  spinForce: 100
 --- !u!1 &1507359998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 626136179805307055, guid: 312a507365b82f0448685f6578b05d84, type: 3}
@@ -5321,8 +5329,8 @@ MonoBehaviour:
   - {fileID: 1492597771}
   - {fileID: 1043937759}
   rivalSpheres:
-  - {fileID: 155054761}
   - {fileID: 1507359998}
+  - {fileID: 155054761}
   - {fileID: 1648038917}
   playerSphereController: {fileID: 912761870}
   rivalSphereController: {fileID: 462841831}
@@ -6184,7 +6192,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 626136179805307048, guid: 312a507365b82f0448685f6578b05d84, type: 3}
   m_PrefabInstance: {fileID: 2074966500}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2074966506
+--- !u!114 &2074966511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6198,6 +6206,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  defenseDamageReduction: 5
+  spinDuration: 2
+  spinForce: 100
 --- !u!1001 &2089794235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6284,7 +6297,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4600439332741316467, guid: 6014e57c57e318747842c2f66879cc90, type: 3}
   m_PrefabInstance: {fileID: 2089794235}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2089794241
+--- !u!114 &2089794246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6298,6 +6311,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 100
+  damageAmount: 10
+  scoreValue: 10
+  defenseDamageReduction: 5
+  spinDuration: 2
+  spinForce: 100
 --- !u!1 &2135793500
 GameObject:
   m_ObjectHideFlags: 0

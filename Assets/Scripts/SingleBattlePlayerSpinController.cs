@@ -4,9 +4,6 @@ using UnityEngine;
 public class SingleBattlePlayerSpinController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public int maxHealth = 100; // Maximum health value for the player
-    private int currentHealth; // Current health value for the player
-
     public int damageAmount = 10; // Damage amount when the player collides with the rival
     public float scoreValue = 10f; // Score value awarded when the player successfully attacks the rival
 
@@ -14,13 +11,14 @@ public class SingleBattlePlayerSpinController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isSpinning = false; // Flag to indicate if the player is currently performing a spin attack
+    private bool canGainScore = true; // Flag to indicate if the player can gain score
+    private bool gameStarted = false; // Flag to indicate if the game has started
 
     private SingleBattleRivalSpinController rivalController; // Reference to the rival controller
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        currentHealth = maxHealth; // Initialize the current health to the maximum health value
 
         rivalController = FindObjectOfType<SingleBattleRivalSpinController>(); // Find the rival controller
     }
@@ -38,28 +36,6 @@ public class SingleBattlePlayerSpinController : MonoBehaviour
             MovePlayer();
         }
     }
-
-    // Function to handle damage to the player
-public void TakeDamage(int damageAmount)
-{
-    currentHealth -= damageAmount;
-
-    // Check if the player's health has reached 0
-    if (currentHealth <= 0)
-    {
-        // Player is defeated
-        // Perform necessary actions such as ending the game, displaying a game over screen, etc.
-        SingleBattleGameSceneManager gameSceneManager = FindObjectOfType<SingleBattleGameSceneManager>();
-        gameSceneManager.EndGame();
-        // ...perform other actions...
-    }
-    else
-    {
-        // Player successfully attacked rival
-        SingleBattleGameSceneManager gameSceneManager = FindObjectOfType<SingleBattleGameSceneManager>();
-        gameSceneManager.GainScore(true); // Award score to player
-    }
-}
 
     // Function to initiate the player's spin attack
     public void StartSpinAttack()
@@ -83,45 +59,60 @@ public void TakeDamage(int damageAmount)
         rb.AddForce(movement * moveSpeed);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Rival"))
-        {
-            // Handle collision with the rival
-            SingleBattleRivalSpinController rivalController = collision.gameObject.GetComponent<SingleBattleRivalSpinController>();
+     private void OnCollisionEnter(Collision collision)
+     {
+         if (collision.gameObject.CompareTag("Rival"))
+         {
+             // Handle collision with the rival
+             SingleBattleRivalSpinController rivalController = collision.gameObject.GetComponent<SingleBattleRivalSpinController>();
 
-            if (isSpinning)
-            {
-                // Player is spinning, attempt to damage the rival
-                rivalController.TakeDamage(damageAmount);
+             // Calculate relative speed between player and rival
+             float relativeSpeed = rb.velocity.magnitude - rivalController.GetRigidbody().velocity.magnitude;
 
-                if (!rivalController.IsSpinning())
-                {
-                    // Rival is not spinning, stop the player's spin attack
-                    StopSpinAttack();
-                }
-            }
-            else
-            {
-                // Player is not spinning, take damage from the rival's spin
-                int rivalSpinDamageAmount = rivalController.GetDamageAmount();
-                TakeDamage(rivalSpinDamageAmount);
-            }
-        }
-    }
+             if (isSpinning && !rivalController.IsSpinning())
+             {
+                 // Player is spinning and the rival is not spinning, attempt to damage the rival
 
-    internal float GetSpinForce()
-    {
-        return spinForce;
-    }
+                 // Stop the player's spin attack
+                 StopSpinAttack();
 
-    public bool IsSpinning()
-    {
-        return isSpinning;
-    }
+                 // Award score to the player or rival based on relative speed
+                 if (gameStarted)
+                 {
+                     SingleBattleGameSceneManager gameSceneManager = FindObjectOfType<SingleBattleGameSceneManager>();
+                     gameSceneManager.GainScore(relativeSpeed > 0);
+                 }
+             }
+         }
+     }
 
-    public int GetDamageAmount()
-    {
-        return damageAmount;
-    }
+     internal float GetSpinForce()
+     {
+         return spinForce;
+     }
+
+     public bool IsSpinning()
+     {
+         return isSpinning;
+     }
+
+     public int GetDamageAmount()
+     {
+         return damageAmount;
+     }
+
+     public void SetCanGainScore(bool canGain)
+     {
+         canGainScore = canGain;
+     }
+
+     public Rigidbody GetRigidbody()
+     {
+         return GetComponent<Rigidbody>();
+     }
+
+     public void StartGame()
+     {
+         gameStarted = true;
+     }
 }

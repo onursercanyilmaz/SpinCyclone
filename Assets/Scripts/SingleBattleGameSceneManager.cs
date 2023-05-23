@@ -52,7 +52,8 @@ public class SingleBattleGameSceneManager : MonoBehaviour
         rivalScore = 0;
 
         playerSpheres[currentPlayerIndex].tag = "Player";
-    rivalSpheres[currentRivalIndex].tag = "Rival";
+        rivalSpheres[currentRivalIndex].tag = "Rival";
+        
         // Update the score display
         UpdateScoreDisplay();
 
@@ -103,43 +104,22 @@ public class SingleBattleGameSceneManager : MonoBehaviour
             Debug.Log("Rival gained a point. Rival score: " + rivalScore);
         }
 
-        // Update the score display
-        UpdateScoreDisplay();
-    }
+         // Update the score display
+         UpdateScoreDisplay();
 
-private void OnCollisionEnter(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Player"))
-    {
-        // Handle collision with the player
-        SingleBattlePlayerSpinController playerController = collision.gameObject.GetComponent<SingleBattlePlayerSpinController>();
-        playerController.TakeDamage(10); // Deal 10 damage to the player
+         // Check if either the player or rival has reached a score of 10
+         if (playerScore >= 10 || rivalScore >= 10)
+         {
+             // End the game
+             EndGame();
+         }
+     }
 
-        // Update rival's score
-        rivalScore++;
-        UpdateScoreDisplay();
+     internal void EndGame()
+     {
+         Debug.Log("Game ended. Player score: " + playerScore + ", Rival score: " + rivalScore);
 
-        Debug.Log("Player collided with rival. Player score: " + playerScore + ", Rival score: " + rivalScore);
-    }
-    else if (collision.gameObject.CompareTag("Rival"))
-    {
-        // Handle collision with the rival
-        SingleBattleRivalSpinController rivalController = collision.gameObject.GetComponent<SingleBattleRivalSpinController>();
-        rivalController.TakeDamage(10); // Deal 10 damage to the rival
-
-        // Update player's score
-        playerScore++;
-        UpdateScoreDisplay();
-
-        Debug.Log("Rival collided with player. Player score: " + playerScore + ", Rival score: " + rivalScore);
-    }
-}
-
-    internal void EndGame()
-    {
-        Debug.Log("Game ended. Player score: " + playerScore + ", Rival score: " + rivalScore);
-
-        // Implement the necessary actions for ending the game
-        // This can include displaying a game over screen, stopping the game flow, etc.
-    }
+         // Implement the necessary actions for ending the game
+         // This can include displaying a game over screen, stopping the game flow, etc.
+     }
 }
