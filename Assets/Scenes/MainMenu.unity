@@ -915,7 +915,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1454084118}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UserManager, Assembly-CSharp
         m_MethodName: SwitchToSignUpTab
         m_Mode: 1
@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1454084118}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UserManager, Assembly-CSharp
         m_MethodName: SwitchToSignUpTab
         m_Mode: 1
@@ -2649,7 +2649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &926345292
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3159,7 +3159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1454084119}
-  - component: {fileID: 1454084118}
+  - component: {fileID: 1454084120}
   m_Layer: 0
   m_Name: CONTROLS
   m_TagString: Untagged
@@ -3167,29 +3167,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1454084118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454084117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107a01d6745714b4e8f3553d15c59d64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  signUpTab: {fileID: 0}
-  loginTab: {fileID: 926345291}
-  startPanel: {fileID: 1451362026}
-  HUD: {fileID: 1451362026}
-  username: {fileID: 0}
-  userEmail: {fileID: 0}
-  userPassword: {fileID: 0}
-  userEmailLogin: {fileID: 0}
-  userPasswordLogin: {fileID: 0}
-  errorSignUp: {fileID: 0}
-  errorLogin: {fileID: 1475071532}
 --- !u!4 &1454084119
 Transform:
   m_ObjectHideFlags: 0
@@ -3205,6 +3182,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1454084120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454084117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a938fc5559fc84cb5895f80d1bc452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainTab: {fileID: 926345291}
+  singleBattleModeTab: {fileID: 1722936633}
+  singleBattleModeButton: {fileID: 1870676632}
+  quitButton: {fileID: 420153261}
 --- !u!1 &1475071530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3672,7 +3665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1722936634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3877,7 +3870,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1454084118}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UserManager, Assembly-CSharp
         m_MethodName: SwitchToSignUpTab
         m_Mode: 1
