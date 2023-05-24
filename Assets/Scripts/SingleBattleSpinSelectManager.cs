@@ -9,6 +9,7 @@ public class SingleBattleSpinSelectManager : MonoBehaviour
     public Button rivalChangeButton; // Button to change the rival's sphere
     public Text playerSphereNameText; // Text component to display the player's sphere name
     public Text rivalSphereNameText; // Text component to display the rival's sphere name
+    public Button chooseSpinsButton; // Button to start the battle
 
     private int currentPlayerSphereIndex; // Index of the player's current sphere
     private int currentRivalSphereIndex; // Index of the rival's current sphere
@@ -37,6 +38,7 @@ public class SingleBattleSpinSelectManager : MonoBehaviour
         // Add listeners to the button click events
         changeButton.onClick.AddListener(ChangePlayerSphere);
         rivalChangeButton.onClick.AddListener(ChangeRivalSphere);
+        chooseSpinsButton.onClick.AddListener(StartBattle);
     }
 
     private void ChangePlayerSphere()
@@ -103,7 +105,12 @@ public class SingleBattleSpinSelectManager : MonoBehaviour
         SpinData.currentPlayerIndex = currentPlayerSphereIndex;
         SpinData.currentRivalIndex = currentRivalSphereIndex;
 
+        // Store the selected indexes in PlayerPrefs
+        PlayerPrefs.SetInt("CurrentPlayerIndex", currentPlayerSphereIndex);
+        PlayerPrefs.SetInt("CurrentRivalIndex", currentRivalSphereIndex);
+        PlayerPrefs.Save();
+
         // Load the GameScene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SingleBattleScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SingleBattleGame");
     }
 }

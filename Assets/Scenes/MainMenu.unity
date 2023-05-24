@@ -303,7 +303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 102066780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33543e584af3a8f478e73ae358f4fad8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d964da2c20a3084d91950298d6e43b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpheres:
@@ -318,7 +318,7 @@ MonoBehaviour:
   rivalChangeButton: {fileID: 840217571}
   playerSphereNameText: {fileID: 1039056228}
   rivalSphereNameText: {fileID: 1363195103}
-  startBattleButton: {fileID: 1940271477}
+  chooseSpinsButton: {fileID: 1940271477}
 --- !u!1 &111688944
 GameObject:
   m_ObjectHideFlags: 0

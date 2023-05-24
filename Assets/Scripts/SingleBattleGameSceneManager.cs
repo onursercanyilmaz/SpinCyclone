@@ -10,8 +10,8 @@ public class SingleBattleGameSceneManager : MonoBehaviour
     public SingleBattlePlayerSpinController playerSphereController; // Player's sphere controller
     public SingleBattleRivalSpinController rivalSphereController; // Rival's sphere controller
 
-    private int currentPlayerIndex; // Index of the player's current sphere
-    private int currentRivalIndex; // Index of the rival's current sphere
+    public int currentPlayerIndex; // Index of the player's current sphere
+    public int currentRivalIndex; // Index of the rival's current sphere
 
     public int playerScore = 0; // Player's score
     public int rivalScore = 0; // Rival's score
@@ -21,9 +21,9 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
     private void Start()
     {
-        // Get the selected indexes from SpinManager's SpinData
-        currentPlayerIndex = SingleBattleSpinSelectManager.SpinData.currentPlayerIndex;
-        currentRivalIndex = SingleBattleSpinSelectManager.SpinData.currentRivalIndex;
+        // Get the selected indexes from PlayerPrefs
+        currentPlayerIndex = PlayerPrefs.GetInt("CurrentPlayerIndex");
+        currentRivalIndex = PlayerPrefs.GetInt("CurrentRivalIndex");
 
         // Set up the spins based on the selected indexes
         SetSpins(playerSpheres, currentPlayerIndex);
@@ -53,7 +53,7 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
         playerSpheres[currentPlayerIndex].tag = "Player";
         rivalSpheres[currentRivalIndex].tag = "Rival";
-        
+
         // Update the score display
         UpdateScoreDisplay();
 
@@ -104,22 +104,22 @@ public class SingleBattleGameSceneManager : MonoBehaviour
             Debug.Log("Rival gained a point. Rival score: " + rivalScore);
         }
 
-         // Update the score display
-         UpdateScoreDisplay();
+        // Update the score display
+        UpdateScoreDisplay();
 
-         // Check if either the player or rival has reached a score of 10
-         if (playerScore >= 10 || rivalScore >= 10)
-         {
-             // End the game
-             EndGame();
-         }
-     }
+        // Check if either the player or rival has reached a score of 10
+        if (playerScore >= 10 || rivalScore >= 10)
+        {
+            // End the game
+            EndGame();
+        }
+    }
 
-     internal void EndGame()
-     {
-         Debug.Log("Game ended. Player score: " + playerScore + ", Rival score: " + rivalScore);
+    internal void EndGame()
+    {
+        Debug.Log("Game ended. Player score: " + playerScore + ", Rival score: " + rivalScore);
 
-         // Implement the necessary actions for ending the game
-         // This can include displaying a game over screen, stopping the game flow, etc.
-     }
+        // Implement the necessary actions for ending the game
+        // This can include displaying a game over screen, stopping the game flow, etc.
+    }
 }
