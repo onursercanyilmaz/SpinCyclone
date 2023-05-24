@@ -13,6 +13,7 @@ public class MainMenuControls : MonoBehaviour
     {
         singleBattleModeButton.onClick.AddListener(OnSingleBattleModeButtonClick);
         quitButton.onClick.AddListener(OnQuitButtonClick);
+       
     }
 
     private void OnSingleBattleModeButtonClick()
@@ -20,6 +21,7 @@ public class MainMenuControls : MonoBehaviour
         mainTab.SetActive(false);
         singleBattleModeTab.SetActive(true);
     }
+
 
     private void OnQuitButtonClick()
     {

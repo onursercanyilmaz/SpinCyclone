@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Rival
   - QuitButton
+  - GoBackToMainMenu
   layers:
   - Default
   - TransparentFX
