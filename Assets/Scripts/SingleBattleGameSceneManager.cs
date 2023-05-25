@@ -1,8 +1,12 @@
+
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SingleBattleGameSceneManager : MonoBehaviour
 {
@@ -26,6 +30,11 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
     public List<AudioClip> collisionSounds; // List of collision sound effects
     private AudioSource audioSource; // Audio source component
+    public AudioClip winSound; // Sound effect for winning
+    public AudioClip loseSound; // Sound effect for losing
+
+
+    private bool isGameEnded = false; // Flag to check if the game has ended
 
     private void Start()
     {
@@ -137,6 +146,28 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
         // Update the score display
         UpdateScoreDisplay();
+
+        // Check if the game has ended
+        if (!isGameEnded)
+        {
+            // Check if the player has reached the maximum score
+            if (playerScore >= 3)
+            {
+                  AudioSource.PlayClipAtPoint(winSound, transform.position);
+            Destroy(rivalSpheres[currentRivalIndex]);
+                // Player wins
+                EndGame(true);
+
+            }
+            // Check if the rival has reached the maximum score
+            else if (rivalScore >= 3)
+            {
+                 AudioSource.PlayClipAtPoint(loseSound, transform.position);
+            Destroy(playerSpheres[currentPlayerIndex]);
+                // Rival wins
+                EndGame(false);
+            }
+        }
     }
 
     private IEnumerator DestroyEffect(GameObject effect)
@@ -147,4 +178,38 @@ public class SingleBattleGameSceneManager : MonoBehaviour
         // Destroy the effect game object
         Destroy(effect);
     }
+
+
+    private void EndGame(bool isPlayerWinner)
+    {
+        isGameEnded = true;
+
+        // Activate the corresponding win or lose screen based on the winner
+        if (isPlayerWinner)
+        {
+             StartCoroutine(LoadWinScreen());
+        }
+        else
+        {
+             StartCoroutine(LoadLoseScreen());
+        }
+
+        Debug.Log("Game ended. Player wins: " + isPlayerWinner);
+
+      
+    }
+
+    // Coroutine to load the main menu scene after a delay
+    private IEnumerator LoadWinScreen()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("WinScreen");
+    }
+      private IEnumerator LoadLoseScreen()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("LoseScreen");
+    }
+    // Function to end the game
+   
 }
