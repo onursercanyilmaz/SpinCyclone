@@ -151,7 +151,7 @@ public class SingleBattleGameSceneManager : MonoBehaviour
         if (!isGameEnded)
         {
             // Check if the player has reached the maximum score
-            if (playerScore >= 3)
+            if (playerScore >= 10)
             {
                   AudioSource.PlayClipAtPoint(winSound, transform.position);
             Destroy(rivalSpheres[currentRivalIndex]);
@@ -160,7 +160,7 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
             }
             // Check if the rival has reached the maximum score
-            else if (rivalScore >= 3)
+            else if (rivalScore >= 10)
             {
                  AudioSource.PlayClipAtPoint(loseSound, transform.position);
             Destroy(playerSpheres[currentPlayerIndex]);

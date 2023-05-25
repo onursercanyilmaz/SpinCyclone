@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.SceneManagement;
 
 public class UserManager : MonoBehaviour
 {
@@ -56,13 +57,13 @@ public class UserManager : MonoBehaviour
     {
 		Debug.Log("Register success");
         errorLogin.text = "";
-        errorSignUp.text = "";
+        errorSignUp.text = "Successfully registered!";
         StartGame();
     }
     public void LoginSuccess(LoginResult result)
     {
 			Debug.Log("Login success");
-        errorLogin.text = "";
+        errorLogin.text = "Successfully logged in!";
         errorSignUp.text = "";
         StartGame();
     }
@@ -89,6 +90,6 @@ public class UserManager : MonoBehaviour
 
     void StartGame()
     {
-        Debug.Log("Redirect to menu");
+         SceneManager.LoadScene("MainMenu");
     }
 }
