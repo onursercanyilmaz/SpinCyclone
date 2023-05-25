@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +20,12 @@ public class SingleBattleGameSceneManager : MonoBehaviour
 
     public TextMesh playerScoreText; // Reference to the player score Text component
     public TextMesh rivalScoreText; // Reference to the rival score Text component
+
+    public List<GameObject> collisionEffects; // List of collision effect prefabs
+    public float effectDuration = 2f; // Duration of the collision effect
+
+    public List<AudioClip> collisionSounds; // List of collision sound effects
+    private AudioSource audioSource; // Audio source component
 
     private void Start()
     {
@@ -57,6 +65,9 @@ public class SingleBattleGameSceneManager : MonoBehaviour
         // Update the score display
         UpdateScoreDisplay();
 
+        // Initialize the audio source
+        audioSource = GetComponent<AudioSource>();
+
         Debug.Log("Game started. Player: " + playerSpheres[currentPlayerIndex].name + ", Rival: " + rivalSpheres[currentRivalIndex].name);
     }
 
@@ -93,33 +104,47 @@ public class SingleBattleGameSceneManager : MonoBehaviour
     // Function to handle scoring when a player or rival gains a point
     public void GainScore(bool isPlayer)
     {
+        // Increment the score for the corresponding player
         if (isPlayer)
         {
             playerScore++;
-            Debug.Log("Player gained a point. Player score: " + playerScore);
         }
         else
         {
             rivalScore++;
-            Debug.Log("Rival gained a point. Rival score: " + rivalScore);
         }
+
+        // Generate a random index within the range of the collisionEffects list
+        int randomEffectIndex = UnityEngine.Random.Range(0, collisionEffects.Count);
+
+        // Get the randomly selected effect prefab
+        GameObject randomEffectPrefab = collisionEffects[randomEffectIndex];
+
+        // Instantiate the random effect prefab at the desired position and rotation
+        GameObject effectInstance = Instantiate(randomEffectPrefab, transform.position, Quaternion.identity);
+
+        // Start the coroutine to destroy the effect after a certain duration
+        StartCoroutine(DestroyEffect(effectInstance));
+
+        // Generate a random index within the range of the collisionSounds list
+        int randomSoundIndex = UnityEngine.Random.Range(0, collisionSounds.Count);
+
+        // Get the randomly selected audio clip
+        AudioClip randomClip = collisionSounds[randomSoundIndex];
+
+        // Play the random audio clip on the AudioSource
+        audioSource.PlayOneShot(randomClip);
 
         // Update the score display
         UpdateScoreDisplay();
-
-        // Check if either the player or rival has reached a score of 10
-        if (playerScore >= 10 || rivalScore >= 10)
-        {
-            // End the game
-            EndGame();
-        }
     }
 
-    internal void EndGame()
+    private IEnumerator DestroyEffect(GameObject effect)
     {
-        Debug.Log("Game ended. Player score: " + playerScore + ", Rival score: " + rivalScore);
+        // Wait for the specified duration
+        yield return new WaitForSeconds(effectDuration);
 
-        // Implement the necessary actions for ending the game
-        // This can include displaying a game over screen, stopping the game flow, etc.
+        // Destroy the effect game object
+        Destroy(effect);
     }
 }
